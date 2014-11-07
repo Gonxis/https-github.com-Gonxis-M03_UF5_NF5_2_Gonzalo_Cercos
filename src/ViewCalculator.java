@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +23,7 @@ import javax.swing.SwingConstants;
 public class ViewCalculator extends JFrame {
 
     private static JLabel label = new JLabel();
-    private static String[][] valores={{"7","8","9","+"},{"4","5","6","-"},{"3","2","1","X"},{"0","·","=","/"}};
+    private static String[][] valores = {{"CE", " ", " ", " "}, {"7", "8", "9", "+"}, {"4", "5", "6", "-"}, {"3", "2", "1", "X"}, {"0", "·", "=", "/"}};
     private static JButton[][] buttonM;
 
     public static void addComponentsToPane(Container pane) {
@@ -45,12 +46,12 @@ public class ViewCalculator extends JFrame {
 
         //2.- component
         JPanel panel = new JPanel();
-        buttonM = new JButton [4][4];
-        panel.setLayout(new GridLayout(4, 4));
+        buttonM = new JButton[5][4];
+        panel.setLayout(new GridLayout(5, 4));
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 4; j++) {
-                buttonM[i][j] = new JButton(valores [i][j]);
+                buttonM[i][j] = new JButton(valores[i][j]);
 
                 panel.setPreferredSize(new Dimension(230, 300));
                 panel.add(buttonM[i][j]);
