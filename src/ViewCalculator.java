@@ -25,7 +25,12 @@ public class ViewCalculator extends JFrame {
     private static JLabel label = new JLabel();
     private static String[][] valores = {{"CE", " ", " ", " "}, {"7", "8", "9", "+"}, {"4", "5", "6", "-"}, {"3", "2", "1", "X"}, {"0", "·", "=", "/"}};
     private static JButton[][] buttonM;
-
+    
+    private ModelCalculator model;
+    //Create and set up the window.
+    public ViewCalculator (ModelCalculator model){
+        ViewCalculator.createAndShowGUI();
+    }
     public static void addComponentsToPane(Container pane) {
 
 

@@ -11,7 +11,7 @@ public class ModelCalculator {
     
     public String resultado;
 
-    public ModelCalculator(String resultado) {
+    public ModelCalculator() {
         this.resultado = "0";
     }
     
