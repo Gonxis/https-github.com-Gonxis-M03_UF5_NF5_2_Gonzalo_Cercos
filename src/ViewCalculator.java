@@ -25,12 +25,16 @@ public class ViewCalculator extends JFrame {
     private static JLabel label = new JLabel();
     private static String[][] valores = {{"CE", " ", " ", " "}, {"7", "8", "9", "+"}, {"4", "5", "6", "-"}, {"3", "2", "1", "X"}, {"0", "·", "=", "/"}};
     private static JButton[][] buttonM;
-    
     private ModelCalculator model;
     //Create and set up the window.
-    public ViewCalculator (ModelCalculator model){
+
+    public ViewCalculator(ModelCalculator a) {
         ViewCalculator.createAndShowGUI();
+//        System.out.println(label.getText());
+
+        this.model = a;
     }
+
     public static void addComponentsToPane(Container pane) {
 
 
@@ -63,13 +67,27 @@ public class ViewCalculator extends JFrame {
                 pane.add(panel);
             }
         }
-
-
     }
 
-    public JLabel getLabel() {
-        return label;
+    public String getLabel() {
+        return label.getText();
+    }
 
+    public void setLabelText(String text) {
+        label.setText(text);
+    }
+
+    public static JButton[][] getButtonM() {
+        return buttonM;
+    }
+
+    public void addListeners(ControllerCalculator controler) {
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                buttonM[i][j].addActionListener((ActionListener) controler);
+            }
+        }
     }
 
     public static void createAndShowGUI() {

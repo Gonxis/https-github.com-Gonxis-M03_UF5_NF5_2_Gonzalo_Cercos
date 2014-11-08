@@ -21,8 +21,6 @@ public class Main {
          
         //Esta linea es quiza la mas importante vincula la funcionalidad de las 3 clases MVC
 //        vista.setControlador(controlador);
- 
-        ViewCalculator.addComponentsToPane(vista);
-        
+         
     }
 }
