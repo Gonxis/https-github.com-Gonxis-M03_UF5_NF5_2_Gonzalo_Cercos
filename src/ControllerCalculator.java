@@ -26,47 +26,17 @@ public class ControllerCalculator implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-//        String boton = e.getActionCommand();
-//        String texto = vc.getLabel().getText();
+        String tecla = e.getActionCommand();
+        String texto = viewC.getLabel();
 
-        for (JButton[] button : ViewCalculator.getButtonM()) {
-
-            for (JButton boton : button) {
-
-                if (e.getSource() == boton) {
-
-                    switch (boton.getText()) {
-                        
-                        case "+":
-                            modelC.suma(viewC.getLabel());
-                            viewC.setLabelText(modelC.getNum() + "");
-                            break;
-                        case "-":
-                            modelC.resta(viewC.getLabel());
-                            viewC.setLabelText(modelC.getNum() + "");
-                            break;
-                        case "X":
-                            modelC.multi(viewC.getLabel());
-                            viewC.setLabelText(modelC.getNum() + "");
-                            break;
-                        case "/":
-                            modelC.divi(viewC.getLabel());
-                            viewC.setLabelText(modelC.getNum() + "");
-                            break;
-                        case "CE":
-                            modelC.reset();
-                            viewC.setLabelText(modelC.getNum() + "");
-                            break;
-                        case "=":
-                            modelC.igual(viewC.getLabel());
-                            viewC.setLabelText(modelC.getNum() + "");
-                            break;
-                        default:
-                            viewC.setLabelText(boton.getText());
-                            break;
-                    }
-                }
-            }
-        }
+        try {    // Mantenemos en esta clase el "control" de errores            
+            // Delegamos la logica de negocio a la clase modelo
+            String resultado = modelC.evaluarExpresion(texto,tecla);
+            // Actualizamos la vista con ese resultado
+            viewC.setLabelText( resultado );
+         } catch (Exception ex) { // capturamos la excepcion si "algo" salio mal
+            viewC.setLabelText( "OCURRIO UN ERROR DE ENTRADA" );
+            ex.printStackTrace();
+        } 
     }
 }

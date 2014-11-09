@@ -1,3 +1,6 @@
+
+import javax.script.*;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -8,147 +11,47 @@
  */
 public class ModelCalculator {
 
-    private double num;
-    private double resultado;
-    private char signo;
-//    private static String texto;
+//    private int num;
+    private String resultado;
+//    private char signo;
 
     public ModelCalculator() {
-//        ModelCalculator.texto = ViewCalculator.getLabel().getText();
-        this.num = 0;
-        this.resultado = 0;
+//        this.num = 0;
+        this.resultado = "0";
     }
 
-    public void igual(String texto) {
-        switch (signo) {
-            case '+':
-                sumaAux(texto);
+    public String evaluarExpresion(String texto, String tecla){ 
+ 
+        switch(tecla){
+ 
+            case "C": resultado = texto.substring(0,texto.length()-1);break;
+            case "CE": resultado = "0";break;
+            case ".": if(!texto.contains(".")){resultado =texto+".";}break;
+            case "/": resultado = texto + "/"; break;
+            case "X": resultado = texto + "X"; break;
+            case "-": resultado = texto + "-"; break;
+            case "+": resultado = texto + "+"; break;
+            case "=":
+            case " "://Los botones de arriba a la izquierda, que son dos sin nada, un espacio en blanco, son los que hacen de
+                        // "=" a causa de que no detecta mi tecla "="
+                try {   
+                  // crear la fabrica de maquinas manejadoras de scripts
+                  ScriptEngineManager factory = new ScriptEngineManager();
+                  // crear la maquina especifica para javascript
+                  ScriptEngine engine = factory.getEngineByName("JavaScript");
+                  // evaluar la expresion matematica con javascript
+                  Object result = engine.eval(texto);   
+                  resultado = result.toString();                                   
+                 } catch (ScriptException ex) { // capturamos la excepcion si "algo" salio mal
+                    resultado = "Ocurrio la siguiente excepcion"+ex.getMessage();
+                }                                            
+                  break;
+            default:// Capturamos todos los eventos de las teclas numericas ( botones 1-9 )
+                if(Character.isDigit(tecla.charAt(0))){ resultado = texto + tecla.charAt(0);}
                 break;
-            case '-':
-                restaAux(texto);
-                break;
-            case '*':
-                multiAux(texto);
-                break;
-            case '/':
-                diviAux(texto);
-                break;
-            default://se introduce un nuemero no se detecta singun signo resultado sera el mismo numero
-                primerValor(texto);
-                break;
-        }
-
-        signo = '=';
-    }
-
-    public void suma(String texto) {
-
-        if (signo == '+') {
-            sumaAux(texto);
-        } else if (signo == '-') {
-            restaAux(texto);
-        } else if (signo == '*') {
-            multiAux(texto);
-        } else if (signo == '/') {
-            diviAux(texto);
-        } else if (signo == '=') {
-            igualAux(texto);
-        } else {
-            primerValor(texto);
-        }
-        signo = '+';
-    }
-
-    public void resta(String texto) {
-        if (signo == '-') {
-            restaAux(texto);
-        } else if (signo == '+') {
-            sumaAux(texto);
-        } else if (signo == '*') {
-            multiAux(texto);
-        } else if (signo == '/') {
-            diviAux(texto);
-        } else if (signo == '=') {
-            igualAux(texto);
-        } else {
-            primerValor(texto);
-        }
-        signo = '-';
-    }
-
-    public void multi(String texto) {
-
-        if (signo == '*') {
-            multiAux(texto);
-        } else if (signo == '-') {
-            restaAux(texto);
-        } else if (signo == '+') {
-            sumaAux(texto);
-        } else if (signo == '/') {
-            diviAux(texto);
-        } else if (signo == '=') {
-            igualAux(texto);
-        } else {
-            primerValor(texto);
-        }
-        signo = '*';
-    }
-
-    public void divi(String texto) {
-
-        if (signo == '*') {
-            multiAux(texto);
-        } else if (signo == '-') {
-            restaAux(texto);
-        } else if (signo == '+') {
-            sumaAux(texto);
-        } else if (signo == '/') {
-            diviAux(texto);
-        } else if (signo == '=') {
-            igualAux(texto);
-        } else {
-            primerValor(texto);
-        }
-        signo = '/';
-
-    }
-
-    private void sumaAux(String texto) {
-        num = Double.parseDouble(texto);
-        resultado += num;
-    }
-
-    private void restaAux(String texto) {
-        num = Double.parseDouble(texto);
-        resultado -= num;
-    }
-
-    private void multiAux(String texto) {
-        num = Double.parseDouble(texto);
-        resultado *= num;
-    }
-
-    private void diviAux(String texto) {
-        num = Double.parseDouble(texto);
-        resultado /= num;
-    }
-
-    private void igualAux(String texto) {
-        resultado = Double.parseDouble(texto);
-    }
-
-    private void primerValor(String texto) {
-        num = Double.parseDouble(texto);
-        resultado = num;
-    }
-
-    public double getNum() {
+ 
+            }   
+         
         return resultado;
-    }
-
-    public void reset() {
-        num = 0;
-        resultado = 0;
-        signo = 'n';
     }
 }

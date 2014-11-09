@@ -23,7 +23,8 @@ import javax.swing.SwingConstants;
 public class ViewCalculator extends JFrame {
 
     private static JLabel label = new JLabel();
-    private static String[][] valores = {{"CE", " ", " ", " "}, {"7", "8", "9", "+"}, {"4", "5", "6", "-"}, {"3", "2", "1", "X"}, {"0", "·", "=", "/"}};
+    //Los 2 espacios en blanco hacen la función de "=" a causa de que no me funciona la tecla =.
+    private static String[][] valores = {{" ", " ", "C", "CE"}, {"7", "8", "9", "+"}, {"4", "5", "6", "-"}, {"3", "2", "1", "X"}, {"0", ".", "=", "/"}};
     private static JButton[][] buttonM;
     private ModelCalculator model;
     //Create and set up the window.
